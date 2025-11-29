@@ -39,7 +39,7 @@ export default function App() {
       <VoteOptions
         onVote={handleVote}
         onReset={resetVotes}
-        canReset={totalVotes > 0} // Reset з'являється тільки якщо є голоси
+        canReset={totalVotes > 0}
       />
 
       {totalVotes > 0 ? (
