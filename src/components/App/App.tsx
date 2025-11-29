@@ -1,7 +1,8 @@
 import { useState } from "react";
-import CafeInfo from "../CafeInfo/Cafeinfo";
+import CafeInfo from "../CafeInfo/CafeInfo";
 import type { Votes, VoteType } from "../types/votes";
-import "./App.module.css";
+import VoteOptions from "../VoteOptions/VoteOptions";
+import css from "./App.module.css";
 
 
 export default function App() {
@@ -29,8 +30,13 @@ export default function App() {
   };
 
   return (
-    <div className={"app"}>
+    <div className={css.app}>
       <CafeInfo />
+      <VoteOptions
+        onVote={handleVote}
+        onReset={resetVotes}
+        canReset={true} // поки що просто true
+      />
     </div>
   );
 }
