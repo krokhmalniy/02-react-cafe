@@ -3,6 +3,7 @@ import CafeInfo from "../CafeInfo/CafeInfo";
 import type { Votes, VoteType } from "../types/votes";
 import VoteOptions from "../VoteOptions/VoteOptions";
 import VoteStats from "../VoteStats/VoteStats";
+import Notification from "../Notification/Notification";
 import css from "./App.module.css";
 
 export default function App() {
@@ -35,13 +36,21 @@ export default function App() {
     <div className={css.app}>
       <CafeInfo />
 
-      <VoteOptions onVote={handleVote} onReset={resetVotes} canReset={true} />
-
-      <VoteStats
-        votes={votes}
-        totalVotes={totalVotes}
-        positiveRate={positiveRate}
+      <VoteOptions
+        onVote={handleVote}
+        onReset={resetVotes}
+        canReset={totalVotes > 0} // Reset з'являється тільки якщо є голоси
       />
+
+      {totalVotes > 0 ? (
+        <VoteStats
+          votes={votes}
+          totalVotes={totalVotes}
+          positiveRate={positiveRate}
+        />
+      ) : (
+        <Notification />
+      )}
     </div>
   );
 }
