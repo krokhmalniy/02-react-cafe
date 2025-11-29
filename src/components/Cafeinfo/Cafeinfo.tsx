@@ -1,1 +1,1 @@
-import "./Cafeinfo.module.css";
+import "./CafeInfo.module.css";
