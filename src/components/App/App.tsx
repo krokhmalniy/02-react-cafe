@@ -2,8 +2,8 @@ import { useState } from "react";
 import CafeInfo from "../CafeInfo/CafeInfo";
 import type { Votes, VoteType } from "../types/votes";
 import VoteOptions from "../VoteOptions/VoteOptions";
+import VoteStats from "../VoteStats/VoteStats";
 import css from "./App.module.css";
-
 
 export default function App() {
   const [votes, setVotes] = useState<Votes>({
@@ -12,7 +12,6 @@ export default function App() {
     bad: 0,
   });
 
-  // Оновлення голосів
   const handleVote = (type: VoteType) => {
     setVotes((prev) => ({
       ...prev,
@@ -20,7 +19,6 @@ export default function App() {
     }));
   };
 
-  // Скидання голосів
   const resetVotes = () => {
     setVotes({
       good: 0,
@@ -29,13 +27,20 @@ export default function App() {
     });
   };
 
+  const totalVotes = votes.good + votes.neutral + votes.bad;
+  const positiveRate =
+    totalVotes === 0 ? 0 : Math.round((votes.good / totalVotes) * 100);
+
   return (
     <div className={css.app}>
       <CafeInfo />
-      <VoteOptions
-        onVote={handleVote}
-        onReset={resetVotes}
-        canReset={true} // поки що просто true
+
+      <VoteOptions onVote={handleVote} onReset={resetVotes} canReset={true} />
+
+      <VoteStats
+        votes={votes}
+        totalVotes={totalVotes}
+        positiveRate={positiveRate}
       />
     </div>
   );
